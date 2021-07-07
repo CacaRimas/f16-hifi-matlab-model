@@ -1,4 +1,4 @@
-# High Fidelity F-16 Mathematical Model - Test Version t0.01
+# High Fidelity F-16 Mathematical Model
 
 ## To-Do List
 - [x] Start GitHub Project.

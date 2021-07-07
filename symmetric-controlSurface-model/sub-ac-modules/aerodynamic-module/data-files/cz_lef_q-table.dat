@@ -1,0 +1,19 @@
+% Z-Axis Force Damping Coefficient Effect of Leading Edge Flap
+% The Function is Cz_lef_q(alpha)
+% Ranges are:
+    % alpha = -20 to 45 deg
+% ------------------------------------------------------------------ %
+ 15.1000
+ 15.1000
+ 15.1000
+ 3.7000
+ 0.6000
+-1.3000
+ 0.3000
+-3.8000
+-4.6000
+-0.2000
+-2.7000
+-3.5000
+-1.3000
+-0.6500

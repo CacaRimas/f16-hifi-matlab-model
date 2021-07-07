@@ -1,0 +1,19 @@
+% Y-Axis Force Damping Coefficient Effect of Leading Edge Flap
+% The Function is Cy_lef_p(alpha)
+% Ranges are:
+    % alpha = -20 to 45 deg
+% ------------------------------------------------------------------ %
+-0.1410
+-0.1410
+-0.1410
+ 0.0690
+-0.1970
+ 0.0601
+-0.1210
+-0.0520
+ 0.0750
+ 0.1060
+-0.0770
+-0.6420
+-0.2550
+-0.1280

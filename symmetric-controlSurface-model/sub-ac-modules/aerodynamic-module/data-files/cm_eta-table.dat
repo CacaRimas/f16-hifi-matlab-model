@@ -1,0 +1,10 @@
+% Pitch Moment Coefficient Effect of Normalized Elevator
+% The Function is Cm_dh(dh)
+% Ranges are:
+    % dh = -25 to 25 deg
+% ------------------------------------------------------------------ %
+ 1.00
+ 1.00
+ 1.00
+ 1.00
+ 0.95

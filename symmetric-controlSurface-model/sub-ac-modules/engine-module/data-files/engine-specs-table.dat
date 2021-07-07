@@ -1,0 +1,6 @@
+% F-16's Engine (F110) Data File
+% Whole Data are obtained from Steven's textbook, Appendix Section.
+% Below matrix looks like;
+    % [h_x, h_y, h_z]
+% -------------------------------------------------------------------------
+160 0 0

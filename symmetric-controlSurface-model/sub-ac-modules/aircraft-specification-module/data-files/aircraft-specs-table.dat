@@ -1,0 +1,12 @@
+% F-16 Specific Data File
+% Whole Data are obtained from Steven's Textbook Appendix Section.
+% Below matrix looks like:
+   % [SRef, b, cbar, xcg, xcgRef;
+   % Ixx, Iyy, Izz Ixz, 0;
+   %  G, 0, 0, 0, 0];
+   %
+   % "0" for filling empty spaces.
+% ------------------------------------------------------------------ %
+300   30    11.32 0.35 0.35
+9496  55814 63100 982  0
+20500 0     0     0    0

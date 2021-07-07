@@ -1,0 +1,19 @@
+% Pitch Moment Damping Coefficient Effect of Leading Edge Flap
+% The Function is Cm_lef_q(alpha)
+% Ranges are:
+    % alpha = -20 to 45 deg
+% ------------------------------------------------------------------ %
+-0.3670
+-0.3670
+-0.3670
+ 2.8800
+ 0.2500
+ 0.2700
+-0.2100
+ 0.3600
+-1.2600
+-2.5100
+-1.6600
+-1.7200
+-1.2000
+-0.6000

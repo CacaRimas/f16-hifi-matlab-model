@@ -1,0 +1,19 @@
+% Roll Moment Damping Coefficient Effect of Leading Edge Flap
+% The Function is Cl_lef_r(alpha)
+% Ranges are:
+    % alpha = -20 to 45 deg
+% ------------------------------------------------------------------ %
+ 0.02900
+ 0.02900
+ 0.02900
+ 0.17500
+ 0.06650
+ 0.03600
+ 0.00700
+ 0.06600
+ 0.20100
+ 0.00600
+-0.06800
+-0.53700
+-0.78700
+-0.39400

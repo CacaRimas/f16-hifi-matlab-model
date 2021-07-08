@@ -197,13 +197,13 @@ subplot(2,1,1)
 plot(time, lat, 'b', 'LineWidth', 2);
 xlabel('Time (sec)');
 ylabel('\mu (deg)');
-title('Normal Acceleration Graph');
+title('Latitude Graph');
 grid on
 subplot(2,1,2)
 plot(time, long, 'b', 'LineWidth', 2);
 xlabel('Time (sec)');
 ylabel('l (deg)');
-title('Lateral Acceleration Graph');
+title('Longitude Graph');
 grid on
 % -------------------------------------------------------------------------
 %% ----------------------------|Engine Graphs|-----------------------------

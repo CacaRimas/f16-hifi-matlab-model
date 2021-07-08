@@ -52,6 +52,29 @@ fprintf('<strong>#...</strong>\n'); pause(1);
 fprintf('<strong>##...</strong>\n'); pause(1);
 fprintf('<strong>###...</strong>\n'); pause(1);
 fprintf('--------------------------------------------\n');
-%%%%% SIM TIPI SORULACAK %%%%%
-initializeF16TrimSim;
+fprintf('What type of your F16 Model do you want to use ?\n');
+fprintf('1. Trim Model\n');
+fprintf('2. SAS Model\n');
+fprintf('More will be added later on project...\n');
+flag.simModel = input('Choice:   ');
+fprintf('--------------------------------------------\n');
+checker.simModel = 0;
+if flag.simModel == 1
+    initializeF16TrimSim;
+elseif flag.simModel == 2
+    initializeF16SASSim;
+else
+    while ~checker.simModel
+    msgg.sim_warnMSG = ['Wrong Input is entered.' ...
+        'Please reanswer the question for your choice [1,2,3,...]'];
+    warning(msgg.simModel);
+    flag.simModel = input('Which model do you want to simulate [1/2]:    ');
+    fprintf('--------------------------------------------\n');s
+        if ~ismember(flag.simModel, {1,2})
+            checker.simModel = 0;
+        else
+            checker.simModel = 1;
+        end
+    end
+end
 % -------------------------------------------------------------------------

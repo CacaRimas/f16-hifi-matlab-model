@@ -67,33 +67,152 @@
 
 function [states, controls] = getConstraints_Euler(states, controls, ...
      initials)
-    % ------------------------ |Initial Conditions|------------------------
+    %% -------------------------|Global Variables|-------------------------
+    global flag
+    % ---------------------------------------------------------------------
+    %% -----------------------------|Gravity|------------------------------
+    graParams = getGravityParams(states);
+    % ---------------------------------------------------------------------
+    %% ------------------------ |Initial Conditions|-----------------------
+    phi = states.phi;
     phi_dot = initials.phi_dot;
     theta_dot = initials.theta_dot;
     psi_dot = initials.psi_dot;
+    rateOfClimb = initials.rateOfClimb;
+    gamma = initials.gamma;
     % ---------------------------------------------------------------------
-    %% ------------------------|State Constraints|-------------------------
-    % Steady Level Flight Condition. (Level-Wing Flight)
+    %% ------------------------|Trigonometric Eqs|-------------------------
     calph = cos(states.alpha); salph = sin(states.alpha);
     cbeta = cos(states.beta); sbeta = sin(states.beta);
-    cphi = cos(states.phi); sphi = sin(states.phi);
-    ctheta = cos(states.theta); stheta = sin(states.theta);
-    gamma = 0; % Flight Path Angle it is 0 for steady level flights.
-    a_theta = calph*cbeta;
-    b_theta = sphi*sbeta+cphi*salph*cbeta;
-    tan_theta = (a_theta*b_theta+gamma*sqrt(a_theta^2-gamma^2+ ...
-     b_theta^2))/(a_theta^2-gamma^2);
-    theta = atan(tan_theta);
-    C_br = [1,  0   , -stheta     ;
-            0,  cphi,  sphi*ctheta;
-            0, -sphi,  cphi*ctheta];
-    w_br = C_br*[phi_dot; theta_dot; psi_dot];
-    p = w_br(1); q = w_br(2); r = w_br(3);
-    % Outputs
-    states.theta = theta;
-    states.p = p;
-    states.q = q;
-    states.r = r;
+    % ---------------------------------------------------------------------
+    %% ------------------------|State Constraints|-------------------------
+    if flag.corTurn == 'Y' % Climb is On
+        sgamma = rateOfClimb;
+        grand_G = psi_dot*states.tas/graParams.g_z;
+        % Phi
+        a_phi = 1-grand_G*tan(states.alpha)*sbeta;
+        b_phi = sgamma/cbeta;
+        c_phi = 1+(grand_G^2)*(cbeta)^2;
+        tan_phi = grand_G*(cbeta/calph)*(((a_phi-b_phi^2)+ ...
+            b_phi*tan(states.alpha)*(c_phi*(1-b_phi^2)+(grand_G^2)*sbeta^2)^(0.5))/ ...
+            (a_phi^2 - b_phi^2*(1+c_phi*tan(states.alpha)^2)));
+        phi = atan(tan_phi);
+        % Theta
+        a_theta = calph*cbeta;
+        b_theta = sin(phi)*sbeta+cos(phi)*salph*cbeta;
+        tan_theta = (a_theta*b_theta+sgamma*sqrt((a_theta^2)-(sgamma^2)+...
+            b_theta^2))/(a_theta^2-(sgamma^2));
+        theta = atan(tan_theta);
+        % PQR
+        C_br = [1  0        -sin(theta);
+                0  cos(phi)  sin(phi)*cos(theta);
+                0 -sin(phi)  cos(phi)*cos(theta)];
+        w_br = C_br*[phi_dot; theta_dot; psi_dot];
+        p = w_br(1); q = w_br(2); r = w_br(3);
+        % Outputs
+        states.phi = phi;
+        states.theta = theta;
+        states.p = p;
+        states.q = q;
+        states.r = r;
+    elseif flag.corTurn == 'N'
+        sgamma = sin(gamma);
+        % Theta
+        a_theta = calph*cbeta;
+        b_theta = sin(phi)*sbeta+cos(phi)*salph*cbeta;
+        tan_theta = (a_theta*b_theta+sgamma*sqrt((a_theta^2)-(sgamma^2)+...
+            b_theta^2))/(a_theta^2-(sgamma^2));
+        theta = atan(tan_theta);
+        % PQR
+        C_br = [1  0        -sin(theta);
+                0  cos(phi)  sin(phi)*cos(theta);
+                0 -sin(phi)  cos(phi)*cos(theta)];
+        w_br = C_br*[phi_dot; theta_dot; psi_dot];
+        p = w_br(1); q = w_br(2); r = w_br(3);
+        % Outputs
+        states.phi = phi;
+        states.theta = theta;
+        states.p = p;
+        states.q = q;
+        states.r = r;
+    elseif flag.trimCon == 3
+        sgamma = sin(gamma);
+        % Theta
+        a_theta = calph*cbeta;
+        b_theta = sin(phi)*sbeta+cos(phi)*salph*cbeta;
+        tan_theta = (a_theta*b_theta+sgamma*sqrt((a_theta^2)-(sgamma^2)+...
+            b_theta^2))/(a_theta^2-(sgamma^2));
+        theta = atan(tan_theta);
+        % PQR
+        C_br = [1  0        -sin(theta);
+                0  cos(phi)  sin(phi)*cos(theta);
+                0 -sin(phi)  cos(phi)*cos(theta)];
+        w_br = C_br*[phi_dot; theta_dot; psi_dot];
+        p = w_br(1); q = w_br(2); r = w_br(3);
+        % Outputs
+        states.phi = phi;
+        states.theta = theta;
+        states.p = p;
+        states.q = q;
+        states.r = r;
+    elseif flag.trimCon == 4
+        sgamma = sin(gamma);
+        % Theta
+        a_theta = calph*cbeta;
+        b_theta = sin(phi)*sbeta+cos(phi)*salph*cbeta;
+        tan_theta = (a_theta*b_theta+sgamma*sqrt((a_theta^2)-(sgamma^2)+...
+            b_theta^2))/(a_theta^2-(sgamma^2));
+        theta = atan(tan_theta);
+        % PQR
+        C_br = [1  0        -sin(theta);
+                0  cos(phi)  sin(phi)*cos(theta);
+                0 -sin(phi)  cos(phi)*cos(theta)];
+        w_br = C_br*[phi_dot; theta_dot; psi_dot];
+        p = w_br(1); q = w_br(2); r = w_br(3);
+        % Outputs
+        states.phi = phi;
+        states.theta = theta;
+        states.p = p;
+        states.q = q;
+        states.r = r;
+    elseif flag.trimCon == 5
+        sgamma = rateOfClimb/states.tas;
+        % Theta
+        a_theta = calph*cbeta;
+        b_theta = sin(phi)*sbeta+cos(phi)*salph*cbeta;
+        tan_theta = (a_theta*b_theta+sgamma*sqrt((a_theta^2)-(sgamma^2)+...
+            b_theta^2))/(a_theta^2-(sgamma^2));
+        theta = atan(tan_theta);
+        % PQR
+        C_br = [1  0        -sin(theta);
+                0  cos(phi)  sin(phi)*cos(theta);
+                0 -sin(phi)  cos(phi)*cos(theta)];
+        w_br = C_br*[phi_dot; theta_dot; psi_dot];
+        p = w_br(1); q = w_br(2); r = w_br(3);
+        % Outputs
+        states.phi = phi;
+        states.theta = theta;
+        states.p = p;
+        states.q = q;
+        states.r = r;
+    else
+        gamma = 0; % Flight Path Angle it is 0 for steady level flights.
+        a_theta = calph*cbeta;
+        b_theta = sphi*sbeta+cphi*salph*cbeta;
+        tan_theta = (a_theta*b_theta+gamma*sqrt(a_theta^2-gamma^2+ ...
+         b_theta^2))/(a_theta^2-gamma^2);
+        theta = atan(tan_theta);
+        C_br = [1  0        -sin(theta);
+                0  cos(phi)  sin(phi)*cos(theta);
+                0 -sin(phi)  cos(phi)*cos(theta)];
+        w_br = C_br*[phi_dot; theta_dot; psi_dot];
+        p = w_br(1); q = w_br(2); r = w_br(3);
+        % Outputs
+        states.theta = theta;
+        states.p = p;
+        states.q = q;
+        states.r = r;
+    end
     % ---------------------------------------------------------------------
     %% ------------------------------|Limits|------------------------------
     % Throttle Limit

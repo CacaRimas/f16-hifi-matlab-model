@@ -5,6 +5,8 @@ fprintf('<strong>#...</strong>\n'); pause(1);
 fprintf('<strong>##...</strong>\n'); pause(1);
 fprintf('<strong>###...</strong>\n'); pause(1);
 fprintf('--------------------------------------------\n');
+% Change Location.
+cd symmetric-controlSurface-model/main-modules/model-files/
 open('f16_hifi_euler_vTrim.slx');
 % Input Parameter Preperation.
 simTime = input('What is your simulation time in (sec):    ');
@@ -37,8 +39,6 @@ else
         end
     end
 end
-% Change Location.
-cd symmetric-controlSurface-model/main-modules/model-files/
 % Running Simulation.
 f16_HiFi_vTrim_Result = sim('f16_hifi_euler_vTrim');
 save_system('f16_hifi_euler_vTrim.slx');

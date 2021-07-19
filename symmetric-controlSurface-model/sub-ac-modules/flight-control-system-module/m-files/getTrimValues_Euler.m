@@ -33,7 +33,7 @@
 % =========================================================================
 
 function outputs = getTrimValues_Euler(inputs)
-%% -------------------------|Global Variables|-------------------------
+    %% -------------------------|Global Variables|-------------------------
     global initials
     % ---------------------------------------------------------------------
     %% ------------------------|Initial Conditions|------------------------
@@ -58,14 +58,18 @@ function outputs = getTrimValues_Euler(inputs)
     initials.sb = inputs.sb;
     initials.lef = inputs.lef;
     % Other Variables Information
-    initials.theta_dot = 0;
-    initials.phi_dot = 0;
-    initials.psi_dot = 0;
+    initials.theta_dot = inputs.phi_dot;
+    initials.phi_dot = inputs.theta_dot;
+    initials.psi_dot = inputs.psi_dot;
     % Latitude and Longitude Calculation
     lla = ned2lla([initials.x_e, initials.y_e, initials.z_e], ...
         [inputs.lat, inputs.long, 0], 'flat');
     initials.lat = lla(1);
     initials.long = lla(2);
+    % Rate of Climb
+    initials.rateOfClimb = inputs.rateOfClimb;
+    % Flight Path Angle
+    initials.gamma = inputs.gamma;
     % ---------------------------------------------------------------------  
     %% ------------------------|Optimization Part|-------------------------
     iter = 1;
